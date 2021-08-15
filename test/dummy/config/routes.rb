@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount ActivestorageDatabase::Engine => "/activestorage_database"
+  mount ActiveStorageDatabase::Engine => "/active_storage_database"
 end

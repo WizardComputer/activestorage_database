@@ -1,2 +1,2 @@
-ActivestorageDatabase::Engine.routes.draw do
+ActiveStorageDatabase::Engine.routes.draw do
 end
