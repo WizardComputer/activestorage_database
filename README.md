@@ -1,8 +1,27 @@
-# ActivestorageDatabase
-Short description and motivation.
+# Active Storage Database
 
-## Usage
-How to use my plugin.
+This is `ActiveStorage` engine that allows storing files inside the database.
+
+While storing files on the external services such as `S3, GCS, Azure` is usually better approach, but better approach also
+depends on the context.
+
+There is a group of applications that do store the files, but not a lot of files or they are installed on-premises without
+access to these public services.
+
+This project is aimed more for those type of apps, if you store TBs of files then you should probabbly look into other solutions.
+
+
+# How it works
+
+Every file is stored inside the `active_storage_database_files` table as a `binary/bytea`.
+Since PostgreSQL can't store values that span multiple pages(8kb), binaries will probabbly be stored inside the TOAST table,
+which allows for quick table scan and leaves the main table(`active_storage_database_files`) slim.
+
+**NOTE**: Max size of TOST tuple in PG is 1GB
+
+
+Engine will use your `ActiveRecord` database connection.
+
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -11,18 +30,35 @@ Add this line to your application's Gemfile:
 gem 'activestorage_database'
 ```
 
-And then execute:
-```bash
-$ bundle
+Install and run the migrations:
+```
+bin/rails active_storage_database:install:migrations
+bin/rails db:migrate
 ```
 
-Or install it yourself as:
-```bash
-$ gem install activestorage_database
+Configure database service:
+```yml
+# config/storage.yml
+
+database:
+  service: Database
 ```
 
-## Contributing
-Contribution directions go here.
+```ruby
+config.active_storage.service = :database
+```
+
+```ruby
+# config/routes.rb
+Rails.application.routes.draw do
+  mount ActiveStorageDB::Engine => '/active_storage_database'
+  ...
+end
+```
+
+
+After the setup you can work with ActiveStorge API as if it was any other `ActiveStorage` service.
+
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
