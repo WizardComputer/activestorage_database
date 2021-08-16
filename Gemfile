@@ -9,4 +9,5 @@ gemspec
 group :development, :test do
   gem "byebug"
   gem "pg", ">= 1.0"
+  gem 'image_processing', '~> 1.2'
 end

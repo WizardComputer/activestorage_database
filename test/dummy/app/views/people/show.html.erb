@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @person.name %>
+</p>
+
+<article>
+  <%= image_tag @person.avatar.representation(resize_to_limit: [128, 128]) %>
+  <%= link_to "Download", rails_blob_path(@person.avatar, disposition: "attachment")  %>
+</article>
+
+<%= link_to 'Edit', edit_person_path(@person) %> |
+<%= link_to 'Back', people_path %>
