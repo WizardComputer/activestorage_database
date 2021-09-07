@@ -6,7 +6,7 @@ module ActiveStorage
 
     def upload(key, io, checksum: nil, **options)
       instrument :upload, key: key, checksum: checksum do
-        file = ActiveStorageDatabase::File.create!(key: key, data: io.read)
+        file = ActivestorageDatabase::File.create!(key: key, data: io.read)
         ensure_integrity_of(key, checksum) if checksum
 
         file
@@ -20,7 +20,7 @@ module ActiveStorage
         end
       else
         instrument :download, key: key do
-          record = ActiveStorageDatabase::File.find_by(key: key)
+          record = ActivestorageDatabase::File.find_by(key: key)
           record&.data || raise(ActiveStorage::FileNotFoundError)
         end
       end
@@ -29,25 +29,25 @@ module ActiveStorage
     def download_chunk(key, range)
       instrument :download_chunk, key: key, range: range do
         chunk_select = "SUBSTRING(data FROM #{range.begin + 1} FOR #{range.size}) AS chunk"
-        ActiveStorageDatabase::File.select(chunk_select).find_by(key: key)&.chunk || raise(ActiveStorage::FileNotFoundError)
+        ActivestorageDatabase::File.select(chunk_select).find_by(key: key)&.chunk || raise(ActiveStorage::FileNotFoundError)
       end
     end
 
     def delete(key)
       instrument :delete, key: key do
-        ActiveStorageDatabase::File.find_by(key: key)&.destroy
+        ActivestorageDatabase::File.find_by(key: key)&.destroy
       end
     end
 
     def delete_prefixed(prefix)
       instrument :delete_prefixed, prefix: prefix do
-        ActiveStorageDatabase::File.where("key LIKE ?", "#{prefix}%").destroy_all
+        ActivestorageDatabase::File.where("key LIKE ?", "#{prefix}%").destroy_all
       end
     end
 
     def exist?(key)
       instrument :exist, key: key do |payload|
-        answer = ActiveStorageDatabase::File.where(key: key).exists?
+        answer = ActivestorageDatabase::File.where(key: key).exists?
         payload[:exist] = answer
         answer
       end
@@ -114,7 +114,7 @@ module ActiveStorage
 
 
       def ensure_integrity_of(key, checksum)
-        file = ::ActiveStorageDatabase::File.find_by(key: key)
+        file = ::ActivestorageDatabase::File.find_by(key: key)
         return if Digest::MD5.base64digest(file.data) == checksum
 
         delete(key)
@@ -122,7 +122,7 @@ module ActiveStorage
       end
 
       def stream(key)
-        size = ActiveStorageDatabase::File.select('OCTET_LENGTH(data) AS size').find_by(key: key)&.size || raise(ActiveStorage::FileNotFoundError)
+        size = ActivestorageDatabase::File.select('OCTET_LENGTH(data) AS size').find_by(key: key)&.size || raise(ActiveStorage::FileNotFoundError)
 
         (size / CHUNK_SIZE.to_f).ceil.times.each do |i|
           range = (i * CHUNK_SIZE..(i + 1) * CHUNK_SIZE - 1)
@@ -131,7 +131,7 @@ module ActiveStorage
       end
 
       def url_helpers
-        @url_helpers ||= ActiveStorageDatabase::Engine.routes.url_helpers
+        @url_helpers ||= ActivestorageDatabase::Engine.routes.url_helpers
       end
   end
 end

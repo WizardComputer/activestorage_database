@@ -1,8 +1,8 @@
-require_relative "lib/active_storage_database/version"
+require_relative "lib/activestorage_database/version"
 
 Gem::Specification.new do |spec|
   spec.name        = "activestorage_database"
-  spec.version     = ActiveStorageDatabase::VERSION
+  spec.version     = ActivestorageDatabase::VERSION
   spec.authors     = ["Dino Maric"]
   spec.email       = ["dino.onex@gmail.com"]
   spec.homepage    = "https://github.com/WizardComputer/activestorage_database"

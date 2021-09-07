@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module ActiveStorageDatabase
+module ActivestorageDatabase
   class Engine < ::Rails::Engine
-    isolate_namespace ActiveStorageDatabase
+    isolate_namespace ActivestorageDatabase
   end
 end

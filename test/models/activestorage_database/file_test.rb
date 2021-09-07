@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class ActiveStorageDatabase::FileTest < ActiveSupport::TestCase
+class ActivestorageDatabase::FileTest < ActiveSupport::TestCase
   setup do
     @image = active_storage_database_files(:image)
   end
@@ -12,7 +12,7 @@ class ActiveStorageDatabase::FileTest < ActiveSupport::TestCase
   end
 
   test "#key must be unique" do
-    new_file = ActiveStorageDatabase::File.new.tap do |file|
+    new_file = ActivestorageDatabase::File.new.tap do |file|
       file.key = @image.key
       file.data = "data"
     end
