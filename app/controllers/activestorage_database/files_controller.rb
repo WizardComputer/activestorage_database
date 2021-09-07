@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ActiveStorageDatabase::FilesController < ActiveStorage::BaseController
+class ActivestorageDatabase::FilesController < ActiveStorage::BaseController
   skip_forgery_protection
 
   def show

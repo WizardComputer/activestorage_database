@@ -2,8 +2,8 @@
 
 require "test_helper"
 
-class ActiveStorageDatabaseTest < ActiveSupport::TestCase
+class ActivestorageDatabaseTest < ActiveSupport::TestCase
   test "it has a version number" do
-    assert ActiveStorageDatabase::VERSION
+    assert ActivestorageDatabase::VERSION
   end
 end

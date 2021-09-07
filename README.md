@@ -13,9 +13,9 @@ This project is aimed more for those type of apps, if you store TBs of files the
 
 # How it works
 
-Every file is stored inside the `active_storage_database_files` table as a `binary/bytea`.
+Every file is stored inside the `activestorage_database_files` table as a `binary/bytea`.
 Since PostgreSQL can't store values that span multiple pages(8kb), binaries will probabbly be stored inside the TOAST table,
-which allows for quick table scan and leaves the main table(`active_storage_database_files`) slim.
+which allows for quick table scan and leaves the main table(`activestorage_database_files`) slim.
 
 **NOTE**: Max size of TOST tuple in PG is 1GB
 
@@ -32,7 +32,7 @@ gem 'activestorage_database'
 
 Install and run the migrations:
 ```
-bin/rails active_storage_database:install:migrations
+bin/rails activestorage_database:install:migrations
 bin/rails db:migrate
 ```
 
@@ -51,7 +51,7 @@ config.active_storage.service = :database
 ```ruby
 # config/routes.rb
 Rails.application.routes.draw do
-  mount ActiveStorageDB::Engine => '/active_storage_database'
+  mount ActivestorageDB::Engine => '/activestorage_database'
   ...
 end
 ```

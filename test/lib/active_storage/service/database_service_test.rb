@@ -15,8 +15,8 @@ class ActiveStorage::Service::DatabaseServiceTest < ActiveSupport::TestCase
   end
 
   test "#upload, saves the file inside the database" do
-    assert_kind_of ActiveStorageDatabase::File, upload(io: @file.data)
-    assert_kind_of ActiveStorageDatabase::File, upload(io: @file.data, checksum: Digest::MD5.base64digest(@file.data))
+    assert_kind_of ActivestorageDatabase::File, upload(io: @file.data)
+    assert_kind_of ActivestorageDatabase::File, upload(io: @file.data, checksum: Digest::MD5.base64digest(@file.data))
   end
 
   test "#upload, raises exception the invalid checksum" do
@@ -46,15 +46,15 @@ class ActiveStorage::Service::DatabaseServiceTest < ActiveSupport::TestCase
   end
 
   test "#delete, deletes the file" do
-    expected_count = ActiveStorageDatabase::File.count - 1
+    expected_count = ActivestorageDatabase::File.count - 1
     @service.delete(@file.key)
-    assert_equal expected_count, ActiveStorageDatabase::File.count
+    assert_equal expected_count, ActivestorageDatabase::File.count
   end
 
   test "#delete_prefixed, deletes all the filex with matching prefix" do
-    expected_count = ActiveStorageDatabase::File.count - 1
+    expected_count = ActivestorageDatabase::File.count - 1
     @service.delete_prefixed(@file.key[0..10])
-    assert_equal expected_count, ActiveStorageDatabase::File.count
+    assert_equal expected_count, ActivestorageDatabase::File.count
   end
 
   test "#exist?, returns true or false depending on the file key existance" do
