@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+VERSION=$1
+
+printf "module ActivestorageDatabase\n  VERSION = \"$VERSION\"\nend\n" > ./lib/activestorage_database/version.rb
+bundle
+git add Gemfile.lock lib/activestorage_database/version.rb
+git commit -m "Bump version for $VERSION"
+git push
+git tag v$VERSION
+git push --tags
+gem build activestorage_database.gemspec
+gem push "activestorage_database-$VERSION.gem"
