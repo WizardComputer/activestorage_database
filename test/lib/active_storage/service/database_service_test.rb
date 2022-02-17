@@ -7,11 +7,6 @@ class ActiveStorage::Service::DatabaseServiceTest < ActiveSupport::TestCase
     @service = ActiveStorage::Service.configure(:database, { database: { service: "Database" } })
     @file                       = activestorage_database_files(:image)
     @content_type               = "image/gif"
-    ActiveStorage::Current.host = "http://www.example.com"
-  end
-
-  teardown do
-    ActiveStorage::Current.reset
   end
 
   test "#upload, saves the file inside the database" do
@@ -67,7 +62,7 @@ class ActiveStorage::Service::DatabaseServiceTest < ActiveSupport::TestCase
     url = @service.url(@file.key, expires_in: 5.minutes, disposition: :inline, filename: filename, content_type: "'image/png'")
     regex = URI.regexp
 
-    assert url.include? "#{ActiveStorage::Current.host}/activestorage_database/files/"
+    assert url.include? "#{ActiveStorage::Current.url_options[:host]}/activestorage_database/files/"
     assert url =~ /\A#{URI::regexp}\z/
   end
 

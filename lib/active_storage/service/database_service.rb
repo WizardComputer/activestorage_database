@@ -4,7 +4,7 @@ module ActiveStorage
   class Service::DatabaseService < Service
     CHUNK_SIZE = 1.megabytes.freeze
 
-    def upload(key, io, checksum: nil, **options)
+    def upload(key, io, checksum: nil, **)
       instrument :upload, key: key, checksum: checksum do
         file = ActivestorageDatabase::File.create!(key: key, data: io.read)
         ensure_integrity_of(key, checksum) if checksum
@@ -65,19 +65,8 @@ module ActiveStorage
             expires_in: expires_in,
             purpose: :blob_key
         )
-        current_uri = URI.parse(current_host)
-        generated_url = url_helpers.service_url(
-            verified_key_with_expiration,
-            protocol: current_uri.scheme,
-            host: current_uri.host,
-            port: current_uri.port,
-            disposition: content_disposition,
-            content_type: content_type,
-            filename: filename
-        )
-        payload[:url] = generated_url
 
-        generated_url
+        url_helpers.service_url(verified_key_with_expiration, filename: filename, **url_options)
       end
     end
 
@@ -93,13 +82,10 @@ module ActiveStorage
             expires_in: expires_in,
             purpose: :blob_token
         )
-        generated_url = url_helpers.update_service_url(
-            verified_token_with_expiration,
-            host: current_host
-        )
-        payload[:url] = generated_url
 
-        generated_url
+        url_helpers.update_service_url(verified_token_with_expiration, url_options) do |generated_url|
+          payload[:url] = generated_url
+        end
       end
     end
 
@@ -108,10 +94,9 @@ module ActiveStorage
     end
 
     private
-      def current_host
-        ActiveStorage::Current.host
+      def url_options
+        ActiveStorage::Current.url_options
       end
-
 
       def ensure_integrity_of(key, checksum)
         file = ::ActivestorageDatabase::File.find_by(key: key)
