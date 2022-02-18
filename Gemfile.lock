@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    activestorage_database (1.0)
+    activestorage_database (2.0)
       rails (>= 7.0)
 
 GEM
