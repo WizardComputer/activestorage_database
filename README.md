@@ -12,7 +12,7 @@ This project is aimed more for those type of apps, if you store TBs of files the
 
 ## Compatibility
 
-Rails Version | ActiveStorageBase64 Version
+Rails Version | ActiveStorageDatabase Version
 --------------|-----------------------------
 7             | 2.x
 6             | 1.x
