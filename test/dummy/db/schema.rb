@@ -37,17 +37,17 @@ ActiveRecord::Schema.define(version: 2021_08_16_091815) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "active_storage_database_files", force: :cascade do |t|
-    t.string "key", null: false
-    t.binary "data", null: false
-    t.datetime "created_at", null: false
-    t.index ["key"], name: "index_active_storage_database_files_on_key", unique: true
-  end
-
   create_table "active_storage_variant_records", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "activestorage_database_files", force: :cascade do |t|
+    t.string "key", null: false
+    t.binary "data", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_activestorage_database_files_on_key", unique: true
   end
 
   create_table "people", force: :cascade do |t|

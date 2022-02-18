@@ -51,7 +51,7 @@ config.active_storage.service = :database
 ```ruby
 # config/routes.rb
 Rails.application.routes.draw do
-  mount ActivestorageDB::Engine => '/activestorage_database'
+  mount ActivestorageDatabase::Engine => '/activestorage_database'
   ...
 end
 ```

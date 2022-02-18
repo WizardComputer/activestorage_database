@@ -4,7 +4,7 @@ require "test_helper"
 
 class ActivestorageDatabase::FileTest < ActiveSupport::TestCase
   setup do
-    @image = active_storage_database_files(:image)
+    @image = activestorage_database_files(:image)
   end
 
   test "image is valid" do
