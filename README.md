@@ -10,6 +10,13 @@ access to these public services.
 
 This project is aimed more for those type of apps, if you store TBs of files then you should probabbly look into other solutions.
 
+## Compatibility
+
+Rails Version | ActiveStorageBase64 Version
+--------------|-----------------------------
+7             | 2.x
+6             | 1.x
+
 
 # How it works
 
@@ -62,3 +69,11 @@ After the setup you can work with ActiveStorge API as if it was any other `Activ
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+## Credits
+
+Active Storage Database is maintained by [WizardHealth](https://www.wizardhealth.co/?lang=en).
+
+![WizardHealth](https://user-images.githubusercontent.com/7427365/154649023-593527d2-964e-4ea0-b752-6e88242c60f0.png)
+
+
